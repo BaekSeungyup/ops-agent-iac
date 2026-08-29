@@ -27,7 +27,7 @@ AWS 계정**에서 초저가 리소스(t3.micro/small)로 전 과정을 돌린�
 5. **state는 환경별 분리** — 버킷 `<project>-state-<account>`,
    key `states/<환경>.tfstate`. dev에서 문제가 생겨도 prod state에는
    영향이 없다.
-5-1. **브랜치=환경** — `dev` 브랜치 머지가 `2-1-dev`를, `main` 머지가 `2-2-prod`를
+6. **브랜치=환경** — `dev` 브랜치 머지가 `2-1-dev`를, `main` 머지가 `2-2-prod`를
    apply한다. dev 변경 PR은 `dev`로, prod 변경 PR은 `main`으로 연다. `modules/`
    변경도 그 브랜치의 환경만 apply되므로, dev에서 검증한 뒤 `dev`→`main` 승격
    PR로 prod에 반영한다. 이 매핑은 워크플로 + IAM trust(OIDC sub: main·dev) +
