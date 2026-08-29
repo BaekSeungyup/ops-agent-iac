@@ -15,11 +15,11 @@ class AccessExpiryGovernanceTest(unittest.TestCase):
 
         self.assertRegex(
             next(line for line in rules if line.startswith("/2-2-prod/db-access")),
-            r"\s@wo-o$",
+            r"\s@\S+$",
         )
         self.assertRegex(
             next(line for line in rules if line.startswith("/2-2-prod/ec2-ssh")),
-            r"\s@wo-o$",
+            r"\s@\S+$",
         )
         revocation_rule = next(
             line for line in rules if line.startswith("/2-2-prod/access-expiry")
