@@ -8,14 +8,14 @@ GRAFANA="${GRAFANA:-http://localhost:3000}"
 if [ -n "${GRAFANA_TOKEN:-}" ]; then A=(-H "Authorization: Bearer ${GRAFANA_TOKEN}")
 else A=(-u "${GRAFANA_AUTH:-admin:admin}"); fi
 echo "== health =="
-curl -s "${A[@]}" "${GRAFANA}/api/health"; echo
+curl -fsS "${A[@]}" "${GRAFANA}/api/health"; echo
 echo "== 알람 룰 상태 =="
-curl -s "${A[@]}" "${GRAFANA}/api/prometheus/grafana/api/v1/rules" | python3 -c '
+curl -fsS "${A[@]}" "${GRAFANA}/api/prometheus/grafana/api/v1/rules" | python3 -c '
 import sys,json
 for g in json.load(sys.stdin).get("data",{}).get("groups",[]):
   for r in g.get("rules",[]): print(" ", r.get("state","?"), "|", r.get("name"))'
 echo "== 활성 사일런스 =="
-curl -s "${A[@]}" "${GRAFANA}/api/alertmanager/grafana/api/v2/silences" | python3 -c '
+curl -fsS "${A[@]}" "${GRAFANA}/api/alertmanager/grafana/api/v2/silences" | python3 -c '
 import sys,json
 xs=[s for s in json.load(sys.stdin) if s.get("status",{}).get("state")=="active"]
 print("  (없음)" if not xs else "")
