@@ -18,9 +18,9 @@ __pycache__/
 # GitHub App private key + metadata (per-student, never commit)
 .secrets/
 
-# terraform init artifacts (validation runs; CI inits fresh)
+# Terraform init directory (validation runs; CI inits fresh)
 .terraform/
-.terraform.lock.hcl
+# Keep provider dependency lockfiles versioned for reproducible local and CI runs.
 
 # course docs — delivered outside the repo, keep local only
 docs/
